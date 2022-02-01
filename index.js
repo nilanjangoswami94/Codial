@@ -5,6 +5,15 @@ const app = express();
 const port = 8000;
 // on line server the port is 80
 
+const expressLayouts = require('express-ejs-layouts');
+
+app.use(express.static('./assets'));
+
+app.use(expressLayouts);
+//extract style and scripts from sub pages into the layout
+app.set('layout extraStyles', true);
+app.set('layout extractScripts', true);
+
 // use express as router
 app.use('/', require('./routes'))
 
