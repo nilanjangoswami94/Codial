@@ -1,9 +1,13 @@
-body{
-    margin: 0;
-    text-align: center;
+body {
+  margin: 0;
+  text-align: center;
+}
+body #layout-main {
+  height: 100%;
 }
 
-li{
-    list-style: none;
+li {
+  list-style: none;
 }
 
+/*# sourceMappingURL=layout.css.map */

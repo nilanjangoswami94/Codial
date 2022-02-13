@@ -18,9 +18,18 @@ const { disable } = require('express/lib/application');
 const MongoStore = require('connect-mongo')(session);
 const flash = require('connect-flash')
 
+// for sass compiling to css file go to the command prompt and then go to the directory and then do the command 
+//  sass --watch assets/scss:assets/css
 
 
 
+// app.use(sassMidleware({
+//     src:'/assets/scss',
+//     dest: '/assets/css',
+//     debug: true,
+//     outputStyle: 'extended',
+//     prefix: '/css'
+// }));
 
 app.use(express.urlencoded());
 
