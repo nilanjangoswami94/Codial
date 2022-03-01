@@ -25,8 +25,21 @@ module.exports.profile = function(req, res){
     }else{
         return res.redirect('/users/sign-in');
     }
-    
-};
+}
+
+
+module.exports.update = function(req, res){
+    if(req.user.id == req.params.id){
+        User.findByIdAndUpdate(req.params.id, req.body, function(err, user){
+            if(err){
+                console.log("error in update", err);
+            }
+            return res.redirect('back');
+        });
+    }else{
+        return res.status(401).send('Unauthorized');
+    }
+}
 
 
 //render the user sign up page
