@@ -39,10 +39,10 @@ module.exports.destroy = function(req, res){
 
 
             Comment.deleteMany({post: req.params.id}, function(err){
-                return res.redirect('back');
+                return res.redirect('/');
             });
         }else{
-            return res.redirect('back');
+            return res.redirect('/');
         }
     });
 }

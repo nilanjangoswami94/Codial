@@ -1,15 +1,4 @@
-<ul>
-    <li>
-        <a href="/users/sign-up">
-            Sign Up!
-        </a>
-    </li>
-    <li>
-        <a href="/users/sign-in">
-            Sign In!
-        </a>
-    </li>
-</ul>
+
 
 <h1>Codial / <%= title %></h1>
 
@@ -30,7 +19,7 @@
                 <p>
                     <% if (locals.user && locals.user.id == post.user.id) { %>
                     <small>
-                        <a href="/post/destroy/<%= post.id %>">Delete</a>
+                        <a href="/posts/destroy/<%= post.id %>">X</a>
                     </small>
                     <% } %>
                     <%= post.content %>
@@ -53,6 +42,11 @@
                         <ul id="post-comments-<%= post._id %>">
                             <% for (comment of post.comments) { %>
                                 <p>
+                                    <% if (locals.user && locals.user.id == comment.user.id) { %>
+                                        <small>
+                                            <a href="/comments/destroy/<%= comment.id %>">X</a>
+                                        </small>
+                                        <% } %>
                                     <%= comment.content %>
                                     <br>
                                     <small>
