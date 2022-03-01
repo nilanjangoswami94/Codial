@@ -8,23 +8,37 @@ module.exports.profile = function(req, res){
     // });
 
     // console.log('#####',req.user);
-    if (req.cookies.user_id){
-        User.findById(req.user.id, function(err, user){
-            if(err){
-                console.log('error is showing', err); 
-                return;
-            }
-            if (user){
-                return res.render('user_profile', {
-                    title: "User profile",
-                    profile_user: user
-                });
-            }
-            return res.redirect('/users/sign-in');
-        });
-    }else{
+    // if(locals.user){
+    //     User.findById(req.user.id, function(err, user){
+    //         if(err){
+    //             console.log('error is showing', err); 
+    //             return;
+    //         }
+    //         if (user){
+    //             return res.render('user_profile', {
+    //                 title: "User profile",
+    //                 profile_user: user
+    //             });
+    //         }
+    //         return res.redirect('/users/sign-in');
+    //     });
+    // }else{
+    //     return res.redirect('/users/sign-in');
+    // }
+
+    User.findById(req.user.id, function(err, user){
+        if(err){
+            console.log('error is showing', err); 
+            return;
+        }
+        if (user){
+            return res.render('user_profile', {
+                title: "User profile",
+                profile_user: user
+            });
+        }
         return res.redirect('/users/sign-in');
-    }
+    });
 }
 
 
@@ -55,11 +69,11 @@ module.exports.signUp = function(req,res){
 
 //render the user sign in page
 module.exports.signIn = function(req,res){
-    if(req.isAuthenticated()){
-        console.log('sign in done');
+    // if(req.isAuthenticated()){
+    //     console.log('sign in done');
 
-        return res.redirect('/users/profile');
-    }
+    //     return res.redirect('/users/profile');
+    // }
     return res.render('user_sign_in',{
         title: "Codial | Sign In"
     });
@@ -100,5 +114,5 @@ module.exports.destroySession = function(req,res){
 
     req.logout();
 
-    return res.redirect('/users/profile');
+    return res.redirect('/users/sign-in');
 }
