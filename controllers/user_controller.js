@@ -9,7 +9,7 @@ module.exports.profile = function(req, res){
 
     // console.log('#####',req.user);
     if (req.cookies.user_id){
-        User.findById(req.user._id, function(err, user){
+        User.findById(req.user.id, function(err, user){
             if(err){
                 console.log('error is showing', err); 
                 return;
@@ -17,11 +17,11 @@ module.exports.profile = function(req, res){
             if (user){
                 return res.render('user_profile', {
                     title: "User profile",
-                    user: user
-                })
+                    profile_user: user
+                });
             }
             return res.redirect('/users/sign-in');
-        })
+        });
     }else{
         return res.redirect('/users/sign-in');
     }

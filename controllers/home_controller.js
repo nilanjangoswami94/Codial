@@ -28,13 +28,14 @@ module.exports.home = function(req, res){
             console.log('error inside exec', err)
         }
         
-
-        return res.render('home',{
-            title: "Codial | Home", 
-            posts: posts
-        })
-    
-    })
+        User.find({}, function(err, users){
+            return res.render('home',{
+                title: "Codial | Home", 
+                posts: posts,
+                all_users: users
+            });
+        });
+    });
 }
     
 
