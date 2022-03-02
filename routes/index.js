@@ -14,5 +14,6 @@ router.use('/posts', require('./posts'));
 //router.use('./routerName', require('/routerfile));
 
 router.use('/comments', require('./comments'));
+// router.use('/users/profile', require('./users/profile'));
 
 module.exports = router;
