@@ -16,7 +16,8 @@ const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
 const { disable } = require('express/lib/application');
 const MongoStore = require('connect-mongo')(session);
-const flash = require('connect-flash')
+const flash = require('connect-flash');
+const customMware = require('./config/middleware');
 
 // for sass compiling to css file go to the command prompt and then go to the directory and then do the command 
 //  sass --watch assets/scss:assets/css
@@ -76,6 +77,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(passport.setAuthenticatedUser);
+app.use(flash());
+app.use(customMware.setFlash);
+
 
 // use express router
 app.use('/', require('./routes'));

@@ -26,7 +26,7 @@ module.exports.profile = function(req, res){
     //     return res.redirect('/users/sign-in');
     // }
 
-    User.findById(req.user.id, function(err, user){
+    User.findById(req.params.id, function(err, user){
         if(err){
             console.log('error is showing', err); 
             return;
@@ -37,7 +37,7 @@ module.exports.profile = function(req, res){
                 profile_user: user
             });
         }
-        return res.redirect('/users/sign-in');
+        // return res.redirect('/users/sign-in');
     });
 }
 
@@ -48,10 +48,13 @@ module.exports.update = function(req, res){
             if(err){
                 console.log("error in update", err);
             }
+            req.flash('success', 'Updated!');
             return res.redirect('back');
         });
     }else{
+        req.flash('error', "Unauthorized!")
         return res.status(401).send('Unauthorized');
+        
     }
 }
 
@@ -100,19 +103,24 @@ module.exports.create = function(req,res){
                     return res.redirect('/users/sign-in')
             })
         }else{
+            req.flash('success', 'You have signned up!')
             return res.redirect('back');
         }
     })
 }
 
+
+// sign in and create a session for the user
 module.exports.createSession = function(req, res){
+    console.log('log-in');
+    req.flash('success', 'Logged in Sucessfully');
     return res.redirect('/');
 };
 
 
 module.exports.destroySession = function(req,res){
-
     req.logout();
+    req.flash('success', 'You have logged out!');
 
-    return res.redirect('/users/sign-in');
+    return res.redirect('/');
 }
