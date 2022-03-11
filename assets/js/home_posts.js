@@ -9,9 +9,9 @@
             $.ajax({
                 type: 'post',
                 url: '/posts/create',
-                data: newPostFrom.serialize(),
+                data: newPostForm.serialize(),
                 success: function(data){
-                    let newpost = newPostDom(data.data.post);
+                    let newPost = newPostDom(data.data.post);
                     $('#posts-list-container>ul').prepend(newPost);
                 }, error: function(err){
                     console.log(error.responseText);
@@ -31,7 +31,7 @@
                         ${post.content}
                         <br>
                         <small>
-                        ${ post.user.name}
+                        ${post.user.name}
                         </small>
                     </p>
                     
