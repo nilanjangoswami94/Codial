@@ -13,13 +13,16 @@ passport.use(new LocalStrategy({
     },
     function(req, email, password, done){
         // find a user and establish the identity
-        User.findOne({email: email}, function(err, user)  {
+        User.findOne({email: email}, function(err, user){
             if (err){
                 req.flash('Error', err);
                 return done(err);
             }
 
+            console.log('*#*#*');
+
             if (!user || user.password != password){
+                console.log('12345',user.password)
                 req.flash('error', 'Invalid Username/Password');
                 console.log('error');
                 return done(null, false);
