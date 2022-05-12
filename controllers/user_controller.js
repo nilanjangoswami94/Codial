@@ -64,22 +64,17 @@ module.exports.update = async function(req, res){
         try{
             
             let user = await User.findById(req.params.id);
-            User.uploadedAvatar(req,res, function(err){
-                if(err) {console.log('****Multer Error:', err)}
-
+            User.uploadedAvatar(req, res, function(err){
+                if (err) {console.log('*****Multer Error: ', err)}
+                
                 user.name = req.body.name;
-                user.email =req.body.email;
+                user.email = req.body.email;
 
-                console.log('***error***')
+                if (req.file){
 
-                if(req.file){
-
-                    if(user.avatar && fs.existsSync(path.join(__dirname, '..', user.avatar))){
-                        fs.unlinkSync(path.join(__dirname, '..', user.avatar))
+                    if (user.avatar){
+                        fs.unlinkSync(path.join(__dirname, '..', user.avatar));
                     }
-
-
-
 
                     // this is saving the path of the uploaded file into the avatar field in the user
                     user.avatar = User.avatarPath + '/' + req.file.filename;
@@ -90,8 +85,8 @@ module.exports.update = async function(req, res){
 
 
         }catch(err){
-            req.flash('error', 'Unauthorized!');
-            return res.status(401).send('Unauthorized');
+            req.flash('error', err);
+            return res.redirect('back');
         }
 
     }else{
@@ -119,6 +114,9 @@ module.exports.signIn = function(req,res){
 
     //     return res.redirect('/users/profile');
     // }
+    if (req.isAuthenticated()){
+        return res.redirect('/users/profile');
+    }
     return res.render('user_sign_in',{
         title: "Codial | Sign In"
     });
@@ -128,6 +126,7 @@ module.exports.signIn = function(req,res){
 //get the sign up data
 module.exports.create = function(req,res){
     if (req.body.password != req.body.confirm_password){
+        req.flash('error', 'Passwords do not match');
         return res.redirect('back');
     }
 

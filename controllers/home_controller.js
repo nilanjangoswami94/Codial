@@ -11,10 +11,14 @@ module.exports.home = async function(req, res){
         .populate('user')
         .populate({
             path: 'comments',
-            populate: ({
+            populate: {
                 path: 'user'
-            })
-        });
+            },
+            populate: {
+                path: 'likes'
+            }
+        }).populate('comments')
+        .populate('likes');
 
     let users = await User.find({})
     
@@ -26,7 +30,8 @@ module.exports.home = async function(req, res){
     });
 
     }catch(err){
-        console.log('Err', err); return;
+        console.log('Err', err); 
+        return;
     }
 
     // console.log(req.cookies);
